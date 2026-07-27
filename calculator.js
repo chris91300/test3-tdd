@@ -4,6 +4,6 @@ export default function add(text) {
         return 0;
     }
 
-    const numbers = text.split(",");
+    const numbers = text.replaceAll("\n", ",").split(",");
     return numbers.reduce((total, number) => total + Number(number), 0);
 }
