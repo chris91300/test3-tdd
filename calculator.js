@@ -1,6 +1,7 @@
 
 // regex qui permet de vérifier si l'utilisateur veut modifier le delimiter
-const changeDelimiterRegex = /^\/\/(.+)\n(.*)/s;
+// le delimiter peut être entre crochet
+const changeDelimiterRegex = /^\/\/\[?(.+?)\]?\n(.*)/s;
 
 // permet de vérifier si un tableau contient de nombre négative et si oui throw une erreur
 function checkIfThereIsNegativeNumbers(arr) {
@@ -27,9 +28,11 @@ export default function add(text) {
     }
 
     if (changeDelimiterRegex.test(text)) {
+        console.log("ON CHANGE LE DELIMITER")
         const utils = text.match(changeDelimiterRegex);
         const delimiter = utils[1];
         const numbers = utils[2];
+        console.log("delimiter => ", delimiter)
         const numbersSplitted = numbers.split(delimiter);
         checkIfThereIsNegativeNumbers(numbersSplitted);
         return numbersSplitted.reduce(addString, 0);
