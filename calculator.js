@@ -12,6 +12,15 @@ function checkIfThereIsNegativeNumbers(arr) {
     }
 }
 
+function addString(total, nbrStringify) {
+    const nbr = Number(nbrStringify);
+    if (nbr <= 1000) {
+        return total + nbr;
+    } else {
+        return total;
+    }
+}
+
 export default function add(text) {
     if (test === "") {
         return 0;
@@ -23,11 +32,11 @@ export default function add(text) {
         const numbers = utils[2];
         const numbersSplitted = numbers.split(delimiter);
         checkIfThereIsNegativeNumbers(numbersSplitted);
-        return numbersSplitted.reduce((total, number) => total + Number(number), 0);
+        return numbersSplitted.reduce(addString, 0);
     } else {
         const numbers = text.replaceAll("\n", ",").split(",");
         checkIfThereIsNegativeNumbers(numbers);
-        return numbers.reduce((total, number) => total + Number(number), 0);
+        return numbers.reduce(addString, 0);
     }
 
 

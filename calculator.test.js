@@ -41,4 +41,9 @@ describe("test of calculator", () => {
     it("should return an negative numbers error when the parameter is '1, -2, 3, -4'", () => {
         expect(() => add('1, -2, 3, -4')).toThrow("negatives not allowed : -2, -4");
     })
+
+    it("should return 2 when the parameter is '2,1001'", () => {
+        const sum = add("2,1001");
+        expect(sum).toEqual(2);
+    })
 })
