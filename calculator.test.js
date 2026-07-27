@@ -22,4 +22,9 @@ describe("test of calculator", () => {
         const sum = add("1,2,3,4,5");
         expect(sum).toEqual(15);
     })
+
+    it("should return 15 when the parameter is '1\n2,3\n4,5'", () => {
+        const sum = add("1\n2,3\n4,5");
+        expect(sum).toEqual(15);
+    })
 })
