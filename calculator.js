@@ -6,8 +6,6 @@ const changeDelimiterRegex = /^\/\/\[?(.+?)\]?\n(.*)/s;
 // permet de vérifier si un tableau contient de nombre négative et si oui throw une erreur
 function checkIfThereIsNegativeNumbers(arr) {
     const negativeNumbers = arr.filter(number => number < 0)
-    console.log("dans negative")
-    console.log(negativeNumbers)
     if (negativeNumbers.length != 0) {
         throw new Error(`negatives not allowed :${negativeNumbers.join(",")}`)
     }
@@ -28,14 +26,29 @@ export default function add(text) {
     }
 
     if (changeDelimiterRegex.test(text)) {
-        console.log("ON CHANGE LE DELIMITER")
         const utils = text.match(changeDelimiterRegex);
         const delimiter = utils[1];
         const numbers = utils[2];
-        console.log("delimiter => ", delimiter)
-        const numbersSplitted = numbers.split(delimiter);
-        checkIfThereIsNegativeNumbers(numbersSplitted);
-        return numbersSplitted.reduce(addString, 0);
+
+        if (delimiter.includes("] [")) {
+            const delimiterModified = delimiter.replaceAll("] [", ",")
+            const delimiterSplitted = delimiterModified.split(",");
+            let newListOfNumber = numbers;
+            // afin de mieux gérer les nombreuse variante, je remplace tous les delmiter par ","
+            delimiterSplitted.forEach(element => {
+                newListOfNumber = newListOfNumber.replaceAll(element, ",");
+            });
+
+            const numbersToAdd = newListOfNumber.split(",");
+            checkIfThereIsNegativeNumbers(numbersToAdd);
+            return numbersToAdd.reduce(addString, 0);
+        } else {
+            const numbersSplitted = numbers.split(delimiter);
+            checkIfThereIsNegativeNumbers(numbersSplitted);
+            return numbersSplitted.reduce(addString, 0);
+        }
+
+
     } else {
         const numbers = text.replaceAll("\n", ",").split(",");
         checkIfThereIsNegativeNumbers(numbers);
