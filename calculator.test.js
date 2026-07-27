@@ -32,4 +32,13 @@ describe("test of calculator", () => {
         const sum = add("//;\n1;2;3;4;5");
         expect(sum).toEqual(15);
     })
+
+    it("should return 15 when the parameter is '//@\n1@2@3@4'", () => {
+        const sum = add("//@\n1@2@3@4");
+        expect(sum).toEqual(10);
+    })
+
+    it("should return an negative numbers error when the parameter is '1, -2, 3, -4'", () => {
+        expect(() => add('1, -2, 3, -4')).toThrow("negatives not allowed : -2, -4");
+    })
 })
